@@ -1,6 +1,7 @@
 package com.adnanarch.securedoc.entity;
 
 import com.adnanarch.securedoc.exception.ApiException;
+import com.adnanarch.securedoc.model.RequestContext;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -32,25 +33,30 @@ public abstract class Auditable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "primary_key_seq")
     @Column(name = "id", updatable = false)
     private Long id;
+
     private String referenceId = new AlternativeJdkIdGenerator().generateId().toString();
+
     @NotNull
     private Long createdBy;
+
     @NotNull
     private Long updatedBy;
+
     @NotNull
     @CreatedDate
     @Column(name = "created_at", updatable = false, nullable = false)
     private LocalDateTime createdAt;
+
     @CreatedDate
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
     @PrePersist
     protected void beforePersist() {
-        var userId = 1L;
-//        if (userId == null) {
-//            throw new ApiException("Cannot persist entity without user Id in Request for this thread.");
-//        }
+        var userId = RequestContext.getUserId();
+        if (userId == null) {
+            throw new ApiException("Cannot persist entity without user Id in Request for this thread.");
+        }
         setCreatedAt(now());
         setCreatedBy(userId);
         setUpdatedAt(now());
@@ -59,10 +65,10 @@ public abstract class Auditable {
 
     @PreUpdate
     protected void beforeUpdate() {
-        var userId = 1L;
-//        if (userId == null) {
-//            throw new ApiException("Cannot update entity without use Id in Request Context for this thread.");
-//        }
+        var userId = RequestContext.getUserId();
+        if (userId == null) {
+            throw new ApiException("Cannot update entity without use Id in Request Context for this thread.");
+        }
         setUpdatedAt(now());
         setUpdatedBy(userId);
     }

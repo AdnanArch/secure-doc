@@ -33,7 +33,6 @@ public class UserEntity extends Auditable{
     private String lastName;
     @Column(unique = true, nullable = false)
     private String email;
-    private String password;
     private Integer loginAttempts;
     private LocalDateTime lastLogin;
     private String phone;
@@ -45,7 +44,7 @@ public class UserEntity extends Auditable{
     private boolean mfa;
     @JsonIgnore
     private boolean qrCodeSecret;
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "text")
     private String qrCodeImageUri;
     @ManyToOne(fetch = EAGER)
     @JoinTable(

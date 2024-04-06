@@ -1,0 +1,18 @@
+#Database
+POSTGRESQL_USERNAME: root
+POSTGRESQL_PASSWORD: admin
+POSTGRESQL_HOST: 192.168.100.6
+POSTGRESQL_PORT: 5432
+POSTGRESQL_DATABASE: secure_app_db
+
+#Server
+CONTAINER_PORT: 8085
+ACTIVE_PROFILE: prod
+
+#Email
+EMAIL_HOST: smtp.gmail.com
+EMAIL_PORT: 587
+EMAIL_ID: adnaninreallife@gmail.com
+EMAIL_PASSWORD: udbymdegxidqdslj
+VERIFY_EMAIL_HOST: http://localhost:8085
+
