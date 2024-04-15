@@ -43,7 +43,7 @@ public class UserEntity extends Auditable{
     private boolean enabled;
     private boolean mfa;
     @JsonIgnore
-    private boolean qrCodeSecret;
+    private String qrCodeSecret;
     @Column(columnDefinition = "text")
     private String qrCodeImageUri;
     @ManyToOne(fetch = EAGER)
